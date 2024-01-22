@@ -1,0 +1,19 @@
+export const maskString = (v: string, mask: string) => {
+  const separator = mask.split('').find((s) => s.toLowerCase() === s.toUpperCase());
+
+  if (!separator) return null;
+
+  let value = v.replaceAll(separator, '');
+  const sections = mask.split(separator).map((v) => v.length);
+  const masekValue = sections
+    .map((sec) => {
+      const part = value.substring(0, sec);
+      value = value.substring(sec, value.length);
+
+      return part;
+    })
+    .filter((v) => v)
+    .join(separator);
+
+  return masekValue;
+};
